@@ -67,7 +67,7 @@ class Deck
             shuffleDeck[i] = cards[randNum];
             
             // Reset top card marker
-            topCard = cards[numCardsLeft-1];
+            topCard = cards[numberOfCards-1];
             
             cards[randNum] = topCard;
             
@@ -77,6 +77,19 @@ class Deck
         
         // Copy shuffled deck into cards...
         cards = shuffleDeck;
+        
+        // Test if there is duplicates
+        // if message doesn't print... youre good!
+        for (int i = 0; i < 52; i++)
+        {
+            for (int j = 0; j < 52; j++)
+            {
+                if (cards[i] == cards[j] && i != j)
+                {
+                    System.out.println("duplicate...");
+                }
+            }
+        }
     }
     
     
