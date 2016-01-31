@@ -23,19 +23,16 @@ class Card
     // an algorithim that wont give repeats
     public Card()
     {
+        this.id = counter++;
         this.face = ACE;
         this.suit = SPADES;
     }
 
     public Card(int face, int suit)
     {
+        this.id = counter++;
         this.face = face;
         this.suit = suit;
-        
-        
-        // Increment the counter
-        counter++;
-        this.id = counter;
     }
     //equals method
     public boolean equals(Card other)
@@ -152,6 +149,17 @@ class Card
                 break;
         }
         return f;
+    }
+    
+    // Accessor/mutator for id
+    public int getId()
+    {
+        return this.id;
+    }
+    
+    public void setId(int id)
+    {
+        this.id = id;
     }
 
     //toString method

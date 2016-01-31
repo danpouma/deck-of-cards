@@ -1,5 +1,7 @@
 package deckofcards;
 
+import java.util.Random;
+
 class Deck
 {
     private Card[] cards;
@@ -12,7 +14,10 @@ class Deck
         numCardsLeft = 52;
         cards = new Card[numCardsLeft];
 
-        //initaliz 52 cards in array
+        //initalize 52 cards in array
+        
+        // Make this better by using % operator?
+        // this works for now tho.
         int count = 0;
         for (int suit = 1; suit <= 4; suit++)
         {
@@ -23,10 +28,58 @@ class Deck
             }
         }
         //shuffle the array
-        shuffle();
+        //shuffle();
+        newShuffle();
         //topCard set in shuffle
     }
-
+    
+    // use random num and shuffle every single card
+    public void newShuffle()
+    {
+        Card[] shuffleDeck = new Card[numCardsLeft];
+        int count = 0;
+        for (int suit = 1; suit <= 4; suit++)
+        {
+            for (int value = 1; value <= 13; value++)
+            {
+                shuffleDeck[count] = new Card(value, suit);
+                count++;
+            }
+        }
+        
+        Random rndgen = new Random(System.currentTimeMillis());
+        
+        // maybe able to make this work better..?
+        int numberOfCards = numCardsLeft;
+        
+        /* 
+        Store random card into new deck
+        Take last card in cards and move to that random location
+        Each loop generate random number based on # of cards
+        This should shuffle EACH card
+        */
+        for(int i = 0; i < numCardsLeft; i++)
+        {
+            //Generate next integer 0 to numCardsLeft
+            int randNum = rndgen.nextInt(numberOfCards);
+            
+            // Store card to swap
+            shuffleDeck[i] = cards[randNum];
+            
+            // Reset top card marker
+            topCard = cards[numCardsLeft-1];
+            
+            cards[randNum] = topCard;
+            
+            numberOfCards--;
+  
+        }
+        
+        // Copy shuffled deck into cards...
+        cards = shuffleDeck;
+    }
+    
+    
     //swap two cards at random a random number of times
     public void shuffle()
     {
