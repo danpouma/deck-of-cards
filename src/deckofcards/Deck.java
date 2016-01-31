@@ -15,7 +15,6 @@ class Deck
         cards = new Card[numCardsLeft];
 
         //initalize 52 cards in array
-        
         // Make this better by using % operator?
         // this works for now tho.
         int count = 0;
@@ -28,13 +27,12 @@ class Deck
             }
         }
         //shuffle the array
-        //shuffle();
-        newShuffle();
+        shuffle();
         //topCard set in shuffle
     }
     
     // use random num and shuffle every single card
-    public void newShuffle()
+    public void shuffle()
     {
         Card[] shuffleDeck = new Card[numCardsLeft];
         int count = 0;
@@ -92,35 +90,6 @@ class Deck
         }
     }
     
-    
-    //swap two cards at random a random number of times
-    public void shuffle()
-    {
-        int numOfSwaps = (int) (Math.random() * 100 + 25);
-        for (int i = 0; i < numOfSwaps; i++)
-        {
-            swapRandom();
-        }
-        //reset the top card marker 
-        //(actually the last card in array)
-        topCard = cards[numCardsLeft - 1];
-    }
-
-    //private helper function for shuffle
-    //no need to make public, only used for shuffle
-    //swap two random cards in the array
-    private void swapRandom()
-    {
-        //pick two random array index
-        int a = (int) (Math.random() * 52);
-        int b = (int) (Math.random() * 52);
-
-        //swap one with the other
-        Card temp = cards[a];
-        cards[a] = cards[b];
-        cards[b] = temp;
-    }
-
     public Card getTopCard()
     {
         Card oldTopCard;
