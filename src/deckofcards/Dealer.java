@@ -28,4 +28,13 @@ public class Dealer
             players[i] = new Player(numberOfCards, cards);
         }
     }
+    
+    public void printPlayers()
+    {
+        for (int i = 0; i < players.length; i++)
+        {
+            System.out.println("Player" + i);
+            System.out.println(players[i]);
+        }
+    }
 }

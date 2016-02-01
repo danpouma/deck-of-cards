@@ -19,4 +19,15 @@ public class Player
         
         hand = cards;
     }
+    
+    @Override
+    public String toString()
+    {
+        String s = "Hand: \n";
+        for (int i = 0; i < hand.length; i++)
+        {
+            s = s + hand[i] + "\n";
+        }
+        return s;
+    }
 }
