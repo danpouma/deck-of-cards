@@ -6,6 +6,8 @@ package deckofcards;
  */
 public class Dealer
 {
+    // Should this be public static?
+    // perhaps make it private or privates static
     public static Deck deck = new Deck();
     
     private Player[] players;
