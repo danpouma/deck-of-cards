@@ -10,6 +10,6 @@ public class Test
     {
         Deck myCards = new Deck();
         
-        //System.out.println(myCards);
+        System.out.println(myCards);
     }
 }

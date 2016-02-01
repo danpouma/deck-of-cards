@@ -7,34 +7,40 @@ class Deck
     private Card[] cards;
     private int numCardsLeft;
     private Card topCard;
-
+    
     public Deck()
     {
-        //set up 52 card array
+        // Initialize number of card left
         numCardsLeft = 52;
+        
+        // Create an array of null pointers for Card objects
         cards = new Card[numCardsLeft];
 
-        //initalize 52 cards in array
-        // Make this better by using % operator?
-        // this works for now tho.
-        int count = 0;
+        
+        // Initialize each null pointer to new Card objects
+        int index = 0;
         for (int suit = 1; suit <= 4; suit++)
         {
             for (int value = 1; value <= 13; value++)
             {
-                cards[count] = new Card(value, suit);
-                count++;
+                cards[index] = new Card(value, suit);
+                index++;
             }
         }
-        //shuffle the array
+        
+        // Shuffle deck... Topcard is set in this method
         shuffle();
-        //topCard set in shuffle
+
     }
     
-    // use random num and shuffle every single card
+    // This shuffle method goes thoroughly shuffles each 
+    // card in the deck
     public void shuffle()
     {
+        // Create a new deck that will be shuffled
         Card[] shuffleDeck = new Card[numCardsLeft];
+        
+        // It will need to be initialized, same as constructor
         int count = 0;
         for (int suit = 1; suit <= 4; suit++)
         {
@@ -45,30 +51,29 @@ class Deck
             }
         }
         
+        // Random number generator
         Random rndgen = new Random(System.currentTimeMillis());
         
-        // maybe able to make this work better..?
+        // Track total number of cards
         int numberOfCards = numCardsLeft;
-        
-        /* 
-        Store random card into new deck
-        Take last card in cards and move to that random location
-        Each loop generate random number based on # of cards
-        This should shuffle EACH card
-        */
+        // Loop for number of cards left
         for(int i = 0; i < numCardsLeft; i++)
         {
             //Generate next integer 0 to numCardsLeft
             int randNum = rndgen.nextInt(numberOfCards);
             
-            // Store card to swap
+            // Copy random card into shuffled deck
             shuffleDeck[i] = cards[randNum];
             
             // Reset top card marker
             topCard = cards[numberOfCards-1];
             
+            // Replace card copied to shuffled deck with deck
             cards[randNum] = topCard;
             
+            // Decrement number of cards
+            // This makes it so that top card isn't looked at anymore
+            // otherwise there would be duplicates
             numberOfCards--;
   
         }
@@ -78,6 +83,7 @@ class Deck
         
         // Test if there is duplicates
         // if message doesn't print... youre good!
+        // **Will move this into a test class
         for (int i = 0; i < 52; i++)
         {
             for (int j = 0; j < 52; j++)
@@ -92,17 +98,16 @@ class Deck
     
     public Card getTopCard()
     {
-        Card oldTopCard;
-        //change the number of cards
-
+        // Create handle to store topCard
+        Card oldTopCard = topCard;
+        
+        // Decrement the number of cards
         numCardsLeft--;
-        //set handle to top card
-        oldTopCard = topCard;
-        //set the topCard handle to the next card
 
+        // Set the topCard handle to the next card
         topCard = cards[numCardsLeft - 1];
-
-        //return the oldTopCard
+        
+        // Return the stored topCard
         return oldTopCard;
     }
 
