@@ -23,6 +23,5 @@ public class Main
         Dealer dealer = new Dealer(numberOfPlayers, numberOfCards);
         
         dealer.printPlayers();
-        
     }
 }

@@ -1,5 +1,9 @@
 package deckofcards;
 
+/**
+ *
+ * @author dpoumakis
+ */
 class Card
 {
     public static final int CLUBS = 1;
@@ -34,7 +38,7 @@ class Card
         this.face = face;
         this.suit = suit;
     }
-    //equals method
+    
     public boolean equals(Card other)
     {
         boolean suitMatched = (this.suit == other.getSuitValue());
@@ -49,7 +53,7 @@ class Card
         return this.face == other.getFaceValue();
     }
 
-    //get methods for suit and face
+    // Accessors for suit, face and id
     public int getSuitValue()
     {
         return suit;
@@ -59,8 +63,13 @@ class Card
     {
         return face;
     }
+    
+    public int getId()
+    {
+        return this.id;
+    }
 
-    //set methods for suit and face
+    // Mutators for suit, face and id
     public void setSuit(int suit)
     { //test for valid data
         if (suit == CLUBS || suit == DIAMONDS || suit == HEARTS || suit == SPADES)
@@ -88,8 +97,13 @@ class Card
             ; //the input is invalid
         }
     }
+    
+    public void setId(int id)
+    {
+        this.id = id;
+    }
 
-    //convert the suit value to a string
+    // Convert the suit value to a string
     public String getSuitString()
     {
         String s = "";
@@ -113,13 +127,12 @@ class Card
         return s;
     }
 
-    //convert the face valie to a string
+    // Convert the face value to a string
     public String getFaceString()
     {
-        String f = ""; //initialize with empty string
+        String f = ""; 
         switch (face)
         {
-            //if the value is 2 - 10
             case 2:
             case 3:
             case 4:
@@ -131,7 +144,6 @@ class Card
             case 10:
                 f = face + "";
                 break;
-            //if it is a face card
             case JACK:
                 f = "Jack";
                 break;
@@ -145,24 +157,12 @@ class Card
                 f = "Ace";
                 break;
             default:
-                System.out.println("Something when wrong. This should never print");
+                System.out.println("Invalid face value, this shouldn't print");
                 break;
         }
         return f;
     }
-    
-    // Accessor/mutator for id
-    public int getId()
-    {
-        return this.id;
-    }
-    
-    public void setId(int id)
-    {
-        this.id = id;
-    }
 
-    //toString method
     @Override
     public String toString()
     {

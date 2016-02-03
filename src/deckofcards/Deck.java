@@ -2,6 +2,10 @@ package deckofcards;
 
 import java.util.Random;
 
+/**
+ *
+ * @author dpoumakis
+ */
 class Deck
 {
     private Card[] cards;
