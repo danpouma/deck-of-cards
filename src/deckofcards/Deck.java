@@ -5,6 +5,7 @@ import java.util.Random;
 /**
  *
  * @author dpoumakis
+ * @date 2/8/2016
  */
 class Deck
 {
