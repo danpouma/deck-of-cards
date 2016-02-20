@@ -41,9 +41,24 @@ public class Player
         return winnings.pop();
     }
     
-    public int getCardCount()
+    public int getHandCount()
     {
         return hand.size();
+    }
+    
+    public int getWinningsCount()
+    {
+        return winnings.size();
+    }
+    
+    public Stack<Card> getHand()
+    {
+        return hand;
+    }
+    
+    public Stack<Card> getWinnings()
+    {
+        return winnings;
     }
     
     
