@@ -1,34 +1,64 @@
 package deckofcards;
 
+import java.util.Stack;
+
 /**
  *
  * @author dpoumakis
- * @date 2/8/2016
  */
 public class Player
 {
     private int id;
-    private Card[] hand;
+    private Stack<Card> hand;
+    private Stack<Card> winnings;
     
     private static int counter;
     
-    public Player(int numberOfCards, Card[] cards)
+    public Player(Stack<Card> hand)
     {
-        this.id = counter++;
-        
-        hand = new Card[numberOfCards];
-        
-        hand = cards;
+        id = counter++;
+        this.hand = hand;
+        winnings = new Stack<>();
     }
     
+    public void addCard(Card card)
+    {
+        hand.push(card);
+    }
+    
+    public Card removeCard()
+    {
+        return hand.pop();
+    }
+    
+    public void addToWinnings(Card card)
+    {
+        winnings.push(card);
+    }
+    
+    public Card removeFromWinnings()
+    {
+        return winnings.pop();
+    }
+    
+    public int getCardCount()
+    {
+        return hand.size();
+    }
+    
+    
+    
+    /*
     @Override
     public String toString()
     {
+        // Will need to figure out how to print stack
         String s = "Hand: \n";
-        for (int i = 0; i < hand.length; i++)
+        for (int i = 0; i < hand.size(); i++)
         {
-            s = s + hand[i] + "\n";
+            //s = s + hand[i] + "\n";
         }
         return s;
     }
+    */
 }

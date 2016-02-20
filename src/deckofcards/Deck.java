@@ -21,7 +21,6 @@ class Deck
         // Create an array of null pointers for Card objects
         cards = new Card[numCardsLeft];
 
-        
         // Initialize each null pointer to new Card objects
         int index = 0;
         for (int suit = 1; suit <= 4; suit++)
@@ -110,7 +109,9 @@ class Deck
         numCardsLeft--;
 
         // Set the topCard handle to the next card
-        topCard = cards[numCardsLeft - 1];
+        // Took away [numCardsLeft -1... Fixed bug in war...
+        // that's scary... hahaha
+        topCard = cards[numCardsLeft];
         
         // Return the stored topCard
         return oldTopCard;
