@@ -31,18 +31,42 @@ public class War
         player2 = new Player(hand2);
     }
     
+    public void play()
+    {
+        int rounds = 0;
+        while (player1.hasCards() && player2.hasCards())
+        {
+            playRound();
+            rounds++;
+        }
+        
+        System.out.println("rounds: " + rounds);
+        
+        // Determine winner
+        if (player1.handIsEmpty())
+        {
+            System.out.println("player2 won");
+        }
+        else
+        {
+            System.out.println("player1 won");
+        }
+    }
+    
     public void playRound()
     {
-        //System.out.println("Player1 hand count: " + player1.getCardCount());
-        //System.out.println("Player2 hand count: " + player2.getCardCount());
+        checkHands();
         
         Card card1 = player1.removeCard();
         Card card2 = player2.removeCard();
         
-        //System.out.println(card1);
-        //System.out.println(card2);
-        
-        if (card1.getFaceValue() > card2.getFaceValue())
+        if (card1.getFaceValue() == card2.getFaceValue())
+        {
+            System.out.println("War!");
+            // I declare war...
+            playWar();
+        }
+        else if (card1.getFaceValue() > card2.getFaceValue())
         {
             //System.out.println("Player 1 wins round");
             player1.addToWinnings(card1);
@@ -56,41 +80,58 @@ public class War
         }
     }
     
-    public int getPlayerScore(Player player)
+    // There is a bug here... Probably when they're equal?
+    // woudl that mean this function will be recursive? lets try
+    public void playWar()
     {
-        int score = 0;
+        // Add a catch for running out of cards
+        checkHands();
         
-        Stack<Card> winnings = player.getWinnings();
+        Card card2 = player1.removeCard();
+        Card card3 = player2.removeCard();
         
-        for (int card = 0; card < player.getWinningsCount(); card++)
+        Card card4 = player1.removeCard();
+        Card card5 = player2.removeCard();
+        
+        if (card4.getFaceValue() == card5.getFaceValue())
         {
-            score += winnings.pop().getFaceValue();
+            // need to pass it all these cards? hmm maybe have it return int?
+            // 0 lost 1 won -- if 1 add cards?
+            System.out.println("Playing war again!");
+            //playWar();
         }
-        
-        return score;
-    }
-    
-    public void determineWinner()
-    {
-        if (getPlayerScore(player1) > getPlayerScore(player2))
+        else if (card4.getFaceValue() > card5.getFaceValue())
         {
-            System.out.println("Player1 wins");
+            player1.addToWinnings(card2);
+            player1.addToWinnings(card3);
+            player1.addToWinnings(card4);
+            player1.addToWinnings(card5);
         }
         else
         {
-            System.out.println("Player2 wins");
+            player2.addToWinnings(card2);
+            player2.addToWinnings(card3);
+            player2.addToWinnings(card4);
+            player2.addToWinnings(card5);
         }
     }
     
-    public static void main(String[] args)
+    public void checkHands()
+    {
+        if (player1.getHandCount() < 2)
+        {
+            player1.addWinningsToHand();
+        }
+        if (player2.getHandCount() < 2)
+        {
+            player2.addWinningsToHand();
+        }
+    }
+    
+     public static void main(String[] args)
     {
         War war = new War();
         
-        for (int i = 0; i < 26; i++)
-        {
-            war.playRound();
-        }
-        
-        war.determineWinner();
+        war.play();
     }
 }

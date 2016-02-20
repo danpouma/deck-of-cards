@@ -62,7 +62,15 @@ class Card
 
     public int getFaceValue()
     {
-        return face;
+        // This modifcation is for war
+        int f = this.face;
+        
+        if (f == ACE)
+        {
+            f = 14;
+        }
+        
+        return f;
     }
     
     public int getId()

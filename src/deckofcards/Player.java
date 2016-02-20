@@ -61,6 +61,30 @@ public class Player
         return winnings;
     }
     
+    public boolean handIsEmpty()
+    {
+        return hand.isEmpty();
+    }
+    
+    public void addWinningsToHand()
+    {
+        for (int card = 0; card < winnings.size(); card++)
+        {
+            hand.push(winnings.pop());
+        }
+    }
+    
+    public boolean hasCards()
+    {
+        boolean hasCards = true;
+        
+        if (hand.isEmpty() && winnings.isEmpty())
+        {
+            hasCards = false;
+        }
+        
+        return hasCards;
+    }
     
     
     /*
