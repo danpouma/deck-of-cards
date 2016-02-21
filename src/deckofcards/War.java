@@ -15,6 +15,7 @@ public class War
     
     // Variables for testing
     private int cardCount;
+    private int roundCount;
     private int warCount;
     private int player1Wins;
     private int player2Wins;
@@ -52,42 +53,12 @@ public class War
     
     public void play()
     {
-        int roundCount = 0;
+        roundCount = 0;
         while (player1.hasCards() && player2.hasCards())
         {
             playRound();
             roundCount++;
         }
-        
-        
-        
-        
-        
-        System.out.println("Rounds: " + roundCount);
-        System.out.println("p1wins: " + player1Wins);
-        System.out.println("p1size: " + player1.getHandCount());
-        System.out.println("p1pool: " + player1.getWinningsCount());
-        System.out.println("p2wins: " + player2Wins);
-        System.out.println("p2size: " + player2.getHandCount());
-        System.out.println("p2pool: " + player2.getWinningsCount());
-        System.out.println("#trash: " + cardsTrashed);
-        System.out.println("tSize : " + trash.size());
-        System.out.println("table#: " + table.size());
-        System.out.println("#wars : " + warCount);
-        
-        // Use this total up the cards in play
-        cardCount += player1.getHandCount();
-        cardCount += player1.getWinningsCount();
-        
-        cardCount += player2.getHandCount();
-        cardCount += player2.getWinningsCount();
-        
-        cardCount += trash.size();
-        cardCount += table.size();
-        
-        // Output card total
-        System.out.println("count: " + cardCount);
-        
         
         // Determine then output winner
         if (player1.handIsEmpty())
@@ -115,11 +86,7 @@ public class War
     
     public void playRound()
     {
-        if (player1.handIsEmpty() || player2.handIsEmpty())
-        {
-            System.out.println("hand empty playRound");
-            checkHands();
-        }
+        checkHands();
         
         // Get top cards from players
         Card card1 = player1.removeCard();
@@ -129,22 +96,9 @@ public class War
         table.push(card1);
         table.push(card2);
         
-        // If cards are equal clear table
         if (card1.getFaceValue() == card2.getFaceValue())
         {
-            if (player1.handIsEmpty() || player2.handIsEmpty())
-            {
-                System.out.println("hand empty ==");
-            }
             playWar();
-            /*
-            // Instead of playing war... trash the cards
-            for (int card = 0; card < table.size(); card++)
-            {
-                cardsTrashed++;
-                trash.push(table.pop());
-            }
-            */
         }
         else if (card1.getFaceValue() > card2.getFaceValue())
         {
@@ -168,11 +122,6 @@ public class War
     
     public void playWar()
     {
-        if (player1.handIsEmpty() || player2.handIsEmpty())
-        {
-            System.out.println("hand empty war");
-            checkHands();
-        }
         
         warCount++;
         
@@ -190,11 +139,41 @@ public class War
         playRound();
     }
     
+    public void test()
+    {
+        System.out.println("Rounds: " + roundCount);
+        System.out.println("p1wins: " + player1Wins);
+        System.out.println("p1size: " + player1.getHandCount());
+        System.out.println("p1pool: " + player1.getWinningsCount());
+        System.out.println("p2wins: " + player2Wins);
+        System.out.println("p2size: " + player2.getHandCount());
+        System.out.println("p2pool: " + player2.getWinningsCount());
+        System.out.println("#trash: " + cardsTrashed);
+        System.out.println("tSize : " + trash.size());
+        System.out.println("table#: " + table.size());
+        System.out.println("#wars : " + warCount);
+        
+        // Use this total up the cards in play
+        cardCount += player1.getHandCount();
+        cardCount += player1.getWinningsCount();
+        
+        cardCount += player2.getHandCount();
+        cardCount += player2.getWinningsCount();
+        
+        cardCount += trash.size();
+        cardCount += table.size();
+        
+        // Output card total
+        System.out.println("count: " + cardCount);
+    }
+    
     public static void main(String[] args)
     {
         War war = new War();
         
         war.play();
         
+        // Uncomment to see test results
+        //war.test();
     }
 }
