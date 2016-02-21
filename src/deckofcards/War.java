@@ -92,11 +92,24 @@ public class War
         // Determine then output winner
         if (player1.handIsEmpty())
         {
-            System.out.println("player1 wins");
+            System.out.println("player2 wins");
         }
         else
         {
-            System.out.println("player2 wins");
+            System.out.println("player1 wins");
+        }
+    }
+    
+    public void checkHands()
+    {
+        if (player1.handIsEmpty())
+        {
+            player1.addWinningsToHand();
+        }
+        
+        if (player2.handIsEmpty())
+        {
+            player2.addWinningsToHand();
         }
     }
     
@@ -104,7 +117,8 @@ public class War
     {
         if (player1.handIsEmpty() || player2.handIsEmpty())
         {
-            System.out.println("hand empty");
+            System.out.println("hand empty playRound");
+            checkHands();
         }
         
         // Get top cards from players
@@ -120,7 +134,7 @@ public class War
         {
             if (player1.handIsEmpty() || player2.handIsEmpty())
             {
-                System.out.println("hand empty");
+                System.out.println("hand empty ==");
             }
             playWar();
             /*
@@ -138,8 +152,7 @@ public class War
             
             for (int card = 0; card < table.size(); card++)
             {
-                player1.addCard(table.pop());
-                //player1.addToWinnings(table.pop());
+                player1.addToWinnings(table.pop());
             }
         }
         else
@@ -148,18 +161,27 @@ public class War
             
             for (int card = 0; card < table.size(); card++)
             {
-                player2.addCard(table.pop());
-                //player2.addToWinnings(table.pop());
+                player2.addToWinnings(table.pop());
             }
         }
     }
     
     public void playWar()
     {
+        if (player1.handIsEmpty() || player2.handIsEmpty())
+        {
+            System.out.println("hand empty war");
+            checkHands();
+        }
+        
         warCount++;
+        
         // Each player puts 3 cards down
         for (int card = 0; card < 3; card++)
         {
+            // Ohhh.. its loop 3 times.. maybe that's it!
+            // Woo this fixes it
+            checkHands();
             table.push(player1.removeCard());
             table.push(player2.removeCard());
         }
