@@ -11,9 +11,11 @@ public class War
     private Deck deck;  
     private Player player1;
     private Player player2;
+    private Stack<Card> table;
     
     public War()
     {
+        
         deck = new Deck();
         
         Stack<Card> hand1 = new Stack<>();
@@ -29,109 +31,57 @@ public class War
         
         player1 = new Player(hand1);
         player2 = new Player(hand2);
+        
+        table = new Stack<>();
     }
     
     public void play()
     {
-        int rounds = 0;
+        int roundCount = 0;
         while (player1.hasCards() && player2.hasCards())
         {
             playRound();
-            rounds++;
+            roundCount++;
         }
-        
-        System.out.println("rounds: " + rounds);
-        
-        // Determine winner
-        if (player1.handIsEmpty())
-        {
-            System.out.println("player2 won");
-        }
-        else
-        {
-            System.out.println("player1 won");
-        }
+        System.out.println("rounds: " + roundCount);
     }
     
     public void playRound()
     {
-        checkHands();
-        
+        // Get top cards from players
         Card card1 = player1.removeCard();
         Card card2 = player2.removeCard();
         
+        // Add cards to table stack
+        table.push(card1);
+        table.push(card2);
+        
+        // If cards are equal clear table
         if (card1.getFaceValue() == card2.getFaceValue())
         {
-            System.out.println("War!");
-            // I declare war...
-            playWar();
+            table.clear();
         }
         else if (card1.getFaceValue() > card2.getFaceValue())
         {
-            //System.out.println("Player 1 wins round");
-            player1.addToWinnings(card1);
-            player1.addToWinnings(card2);
+            for (int card = 0; card < table.size(); card++)
+            {
+                player1.addCard(table.pop());
+            }
         }
         else
         {
-            //System.out.println("Player 2 wins round");
-            player2.addToWinnings(card1);
-            player2.addToWinnings(card2);
+            for (int card = 0; card < table.size(); card++)
+            {
+                player1.addCard(table.pop());
+            }
         }
     }
     
-    // There is a bug here... Probably when they're equal?
-    // woudl that mean this function will be recursive? lets try
-    public void playWar()
-    {
-        // Add a catch for running out of cards
-        checkHands();
-        
-        Card card2 = player1.removeCard();
-        Card card3 = player2.removeCard();
-        
-        Card card4 = player1.removeCard();
-        Card card5 = player2.removeCard();
-        
-        if (card4.getFaceValue() == card5.getFaceValue())
-        {
-            // need to pass it all these cards? hmm maybe have it return int?
-            // 0 lost 1 won -- if 1 add cards?
-            System.out.println("Playing war again!");
-            //playWar();
-        }
-        else if (card4.getFaceValue() > card5.getFaceValue())
-        {
-            player1.addToWinnings(card2);
-            player1.addToWinnings(card3);
-            player1.addToWinnings(card4);
-            player1.addToWinnings(card5);
-        }
-        else
-        {
-            player2.addToWinnings(card2);
-            player2.addToWinnings(card3);
-            player2.addToWinnings(card4);
-            player2.addToWinnings(card5);
-        }
-    }
-    
-    public void checkHands()
-    {
-        if (player1.getHandCount() < 2)
-        {
-            player1.addWinningsToHand();
-        }
-        if (player2.getHandCount() < 2)
-        {
-            player2.addWinningsToHand();
-        }
-    }
-    
-     public static void main(String[] args)
+    public static void main(String[] args)
     {
         War war = new War();
         
         war.play();
+        
     }
 }
