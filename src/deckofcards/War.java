@@ -13,8 +13,15 @@ public class War
     private Player player2;
     private Stack<Card> table;
     
+    // Variables for testing
+    private int player1Wins;
+    private int player2Wins;
+    
     public War()
     {
+        // Variables for testing initialization
+        player1Wins = 0;
+        player2Wins = 0;
         
         deck = new Deck();
         
@@ -63,6 +70,8 @@ public class War
         }
         else if (card1.getFaceValue() > card2.getFaceValue())
         {
+            player1Wins++;
+            
             for (int card = 0; card < table.size(); card++)
             {
                 player1.addCard(table.pop());
@@ -70,9 +79,11 @@ public class War
         }
         else
         {
+            player2Wins++;
+            
             for (int card = 0; card < table.size(); card++)
             {
-                player1.addCard(table.pop());
+                player2.addCard(table.pop());
             }
         }
     }
