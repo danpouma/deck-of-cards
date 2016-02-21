@@ -16,12 +16,16 @@ public class War
     // Variables for testing
     private int player1Wins;
     private int player2Wins;
+    private int cardsTrashed;
+    private Stack<Card> trash;
     
     public War()
     {
         // Variables for testing initialization
         player1Wins = 0;
         player2Wins = 0;
+        cardsTrashed = 0;
+        trash = new Stack<>();
         
         deck = new Deck();
         
@@ -50,7 +54,15 @@ public class War
             playRound();
             roundCount++;
         }
-        System.out.println("rounds: " + roundCount);
+        
+        System.out.println("Rounds: " + roundCount);
+        System.out.println("p1wins: " + player1Wins);
+        System.out.println("p1size: " + player1.getHandCount());
+        System.out.println("p2wins: " + player2Wins);
+        System.out.println("p2size: " + player2.getHandCount());
+        System.out.println("#trash: " + cardsTrashed);
+        System.out.println("tSize : " + trash.size());
+        System.out.println("table#: " + table.size());
     }
     
     public void playRound()
@@ -66,7 +78,11 @@ public class War
         // If cards are equal clear table
         if (card1.getFaceValue() == card2.getFaceValue())
         {
-            table.clear();
+            for (int card = 0; card < table.size(); card++)
+            {
+                cardsTrashed++;
+                trash.push(table.pop());
+            }
         }
         else if (card1.getFaceValue() > card2.getFaceValue())
         {
@@ -74,7 +90,7 @@ public class War
             
             for (int card = 0; card < table.size(); card++)
             {
-                player1.addCard(table.pop());
+                player1.addToWinnings(table.pop());
             }
         }
         else
@@ -83,7 +99,7 @@ public class War
             
             for (int card = 0; card < table.size(); card++)
             {
-                player2.addCard(table.pop());
+                player2.addToWinnings(table.pop());
             }
         }
     }

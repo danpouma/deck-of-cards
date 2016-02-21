@@ -74,11 +74,12 @@ public class Player
         }
     }
     
+    // This check winnings too... change back later
     public boolean hasCards()
     {
         boolean hasCards = true;
         
-        if (hand.isEmpty() && winnings.isEmpty())
+        if (hand.isEmpty())
         {
             hasCards = false;
         }
