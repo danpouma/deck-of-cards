@@ -54,6 +54,8 @@ public class War
     public void play()
     {
         roundCount = 0;
+        // Probably should have the loop run off a boolean
+        // that's more secure.
         while (player1.hasCards() && player2.hasCards())
         {
             playRound();
@@ -174,6 +176,6 @@ public class War
         war.play();
         
         // Uncomment to see test results
-        //war.test();
+        war.test();
     }
 }

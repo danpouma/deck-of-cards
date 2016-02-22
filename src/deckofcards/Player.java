@@ -74,7 +74,7 @@ public class Player
         }
     }
     
-    // This check winnings too... change back later
+    // Look into having check winnings too
     public boolean hasCards()
     {
         boolean hasCards = true;
